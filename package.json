@@ -9,14 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "dayjs": "^1.10.6",
+    "formik": "^2.2.9",
+    "mobx": "^6.3.3",
     "next": "11.1.2",
+    "querystring": "^0.2.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/react": "17.0.19",
+    "autoprefixer": "^10.3.3",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.9",
     "typescript": "4.4.2"
   }
 }

@@ -49,6 +49,16 @@ module.exports = {
       640: "640px",
       1280: "1280px",
     },
+    screens: {
+      'tablet': '640px',
+      // => @media (min-width: 640px) { ... }
+
+      'laptop': '1280px',
+      // => @media (min-width: 1024px) { ... }
+
+      'desktop': '1920px',
+      // => @media (min-width: 1280px) { ... }
+    },
   },
   variants: {
     extend: {},

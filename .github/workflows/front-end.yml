@@ -23,11 +23,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
     - name: build docker images
       run: |
-        docker build . --tag ghcr.io/nattanunkorn9743/int222-025-067-127
+        docker build . --tag ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
         docker images 
     - name: push docker image to registy
       run: |
-        $ docker push ghcr.io/nattanunkorn9743/int222-025-067-127
+       docker push ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
         
 #   deploy:
 #     needs: build

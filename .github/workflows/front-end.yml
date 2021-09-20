@@ -1,9 +1,9 @@
 name: Font-End
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 # env:
 #   AZURE_WEBAPP_NAME: int222-project-backend   # set this to your application's name

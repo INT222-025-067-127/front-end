@@ -32,7 +32,7 @@ jobs:
           docker image
     - name: push to registry
       run: |
-          docker push ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
+          docker run ghcr.io/nattanunkorn9743/int222-025-067-127
           
 #    deploy:
     - name: executing remote ssh commands using password

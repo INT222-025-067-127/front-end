@@ -37,5 +37,11 @@ jobs:
        username: ${{ secrets.USERNAME }}
        password: ${{ secrets.PASSWORD }}
        port: ${{ secrets.PORT }}
-       script: whoami
+       script: |
+        export CR_PAT=${{ secrets.GITHUB.TOKEN }}
+        echo $CR_PAT | docker login ghcr.io -u nattanunkorn9743 --password-stdin
+        docker pull ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
+        docker image
+        docker rm front-end -f
+        docker run -p 9000:9000 -d --name front-end ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
       

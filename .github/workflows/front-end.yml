@@ -30,6 +30,9 @@ jobs:
       run: |
           docker build . --tag ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
           docker image
+          docker push ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
+          
+#    deploy:
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:

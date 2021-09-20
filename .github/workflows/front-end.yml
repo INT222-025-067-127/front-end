@@ -30,6 +30,8 @@ jobs:
       run: |
           docker build . --tag ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
           docker image
+    - name: push to registry
+      run: |
           docker push ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
           
 #    deploy:
@@ -42,6 +44,6 @@ jobs:
        port: ${{ secrets.PORT }}
        script: |
         export CR_PAT=${{ secrets.GITHUB.TOKEN }}
-        echo $CR_PAT | docker login ghcr.io -u nattanunkorn9743/int222-025-067-127 --password-stdin
+ 
     
       

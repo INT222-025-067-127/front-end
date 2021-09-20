@@ -23,30 +23,30 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
     - name: build docker images
       run: |
-        docker build . --tag ghcr.io/nattanunkorn9743/int222-025-067-127
+        docker build . --tag ghcr.io/OWNER/IMAGE_NAME:latest
         docker images 
     - name: push docker image to registy
       run: |
-        docker push ghcr.io/nattanunkorn9743/int222-025-067-127
+        $ docker push ghcr.io/OWNER/IMAGE_NAME:latest
         
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest  
-    steps:
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            export CR_PAT=${{ secrets.GITHUB_TOKEN }}
-            echo $CR_PAT | docker login ghcr.io -u mai126 --password-stdin
-            docker pull ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
-            docker images
-            docker rm simple-node-app -f
-            docker run -p 9000:9000 -d --name front-end ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
+#   deploy:
+#     needs: build
+#     runs-on: ubuntu-latest  
+#     steps:
+#       - name: executing remote ssh commands using password
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.USERNAME }}
+#           password: ${{ secrets.PASSWORD }}
+#           port: ${{ secrets.PORT }}
+#           script: |
+#             export CR_PAT=${{ secrets.GITHUB_TOKEN }}
+#             echo $CR_PAT | docker login ghcr.io -u mai126 --password-stdin
+#             docker pull ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
+#             docker images
+#             docker rm simple-node-app -f
+#             docker run -p 9000:9000 -d --name front-end ghcr.io/nattanunkorn9743/int222-025-067-127/front-end
 #    deploy:
 #     - name: executing remote ssh commands using password
 #       uses: appleboy/ssh-action@master

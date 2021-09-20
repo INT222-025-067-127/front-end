@@ -39,5 +39,6 @@ jobs:
        port: ${{ secrets.PORT }}
        script: |
         export CR_PAT=${{ secrets.GITHUB.TOKEN }}
+        echo $CR_PAT | docker login ghcr.io -u nattanunkorn9743 --password-stdin
     
       

@@ -8,13 +8,13 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
-# FROM node:alpine AS builder
-# WORKDIR /app
-# ENV PATH /app/node_modules/.bin:$PATH
-# COPY package.json /app/package.json
-# RUN npm install 
-# COPY . /app
-# RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
+FROM node:alpine AS builder
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json /app/package.json
+RUN npm install 
+COPY . /app
+RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
 
 # WORKDIR /app

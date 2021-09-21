@@ -46,7 +46,7 @@ jobs:
               sudo docker pull ghcr.io/int222-025-067-127/front-end:latest
               sudo docker images
               sudo docker rm front-end -f
-              sudo docker run -p 8080:8080 -d --name front-end ghcr.io/int222-025-067-127/front-end:latest
+              sudo docker run -p 3000:3000 -d --name front-end ghcr.io/int222-025-067-127/front-end:latest
  
 #    deploy:
 #     - name: executing remote ssh commands using password

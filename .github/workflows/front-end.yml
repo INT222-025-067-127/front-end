@@ -42,11 +42,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             export CR_PAT=${{ secrets.GITHUB_TOKEN }}
-            echo $CR_PAT | docker login ghcr.io -u int222-025-067-127 --password-stdin
-            docker pull ghcr.io/int222-025-067-127/front-end
-            docker images
-            docker rm simple-node-app -f
-            docker run -p 9000:9000 -d --name front-end ghcr.io/int222-025-067-127/front-end
+ 
 #    deploy:
 #     - name: executing remote ssh commands using password
 #       uses: appleboy/ssh-action@master

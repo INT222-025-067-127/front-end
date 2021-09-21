@@ -41,7 +41,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            export CR_PAT=${{ secrets.GITHUB_TOKEN }}
+           export CR_PAT=${{ secrets.GITHUB_TOKEN }}
  
 #    deploy:
 #     - name: executing remote ssh commands using password

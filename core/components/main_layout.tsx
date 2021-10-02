@@ -8,7 +8,7 @@ import { mainLayoutContext } from "../contexts/main_layout_context";
 import { Observer } from "mobx-react-lite";
 
 const route = [
-  { name: "Product", path: "/products" },
+  { name: "Product", path: "/" },
   { name: "Cart", path: "/Cart" },
   { name: "Members", path: "/members" },
 ];
@@ -31,23 +31,11 @@ export default function MainLayout({ children, fullWidth = false }) {
               />
             </Link>
             <div className="laptop:flex justify-center space-x-112 flex-grow text-[#83817F] hidden">
-              <Link href="/">
-                <button
-                  className={classnames(
-                    "border-[#83817f] px-4 desktop:text-xl",
-                    {
-                      "border-b-2": router.asPath === "/",
-                    }
-                  )}
-                >
-                  Home
-                </button>
-              </Link>
               {_.map(route, (route) => (
                 <Link href={`${route.path}`} key={route.name}>
                   <button
                     className={classnames(
-                      "border-[#83817f] px-4 desktop:text-xl",
+                      "border-[#83817f] px-4 subheading1",
                       {
                         "border-b-2": _.includes(
                           `/${router.asPath.split("/")[1]}`,
@@ -64,7 +52,7 @@ export default function MainLayout({ children, fullWidth = false }) {
 
             {authContext.user?.role === "anonymous" ? (
               <button
-                className="bg-[#367cb0] rounded-[42px] w-[112px] h-40 text-white cursor-pointer laptop:block hidden"
+                className="bg-[#367cb0] rounded-[42px] w-[112px] h-40 text-white cursor-pointer laptop:block hidden subheading2"
                 onClick={() => router.push("/signin")}
               >
                 login
@@ -87,7 +75,7 @@ export default function MainLayout({ children, fullWidth = false }) {
               {context.isMenuOpen && (
                 <div className="absolute rounded-[3px] right-0 z-20 flex flex-col w-[36vw] top-[40px] divide-y divide-gray-300 bg-[#c4c4c4]">
                   {_.map(route, (route) => (
-                    <p className="py-8" onClick={() => router.push(route.path)}>
+                    <p className="py-8 text-[#83817F] subheading2" onClick={() => router.push(route.path)}>
                       {route.name}
                     </p>
                   ))}
@@ -97,7 +85,7 @@ export default function MainLayout({ children, fullWidth = false }) {
           </div>
           <div
             className={classnames(
-              "mx-auto min-h-[calc(100vh-48px)] laptop:min-h-[calc(100vh-64px)] desktop:min-h-[calc(100vh-96px)]", //h-48 laptop:64 desktop:96
+              "mx-auto min-h-[calc(100vh-48px)] laptop:min-h-[calc(100vh-64px)] desktop:min-h-[calc(100vh-96px)]",
               { "w-full": fullWidth },
               { "max-w-[1280px]": !fullWidth }
             )}

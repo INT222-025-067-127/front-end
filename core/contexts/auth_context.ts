@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { createContext } from "react";
-import { postsignin } from "../services/Auth";
+import { postsignin, postsignup } from "../services/Auth";
 
 class AuthContextClass {
   user: {
@@ -23,6 +23,15 @@ class AuthContextClass {
   async signin(authForm: { username: string; password: string }) {
     try {
       await postsignin(authForm);
+    } catch (err) {
+      console.log(err);
+      alert(err.message);
+    }
+  }
+
+  async signup(authForm) {
+    try {
+      await postsignup(authForm);
     } catch (err) {
       console.log(err);
       alert(err.message);

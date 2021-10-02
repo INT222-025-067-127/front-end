@@ -1,10 +1,10 @@
 import { useRouter } from "next/dist/client/router";
 import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../../core/contexts/auth_context";
-import getConfig from "next/config";
 import { useFormik } from "formik";
 import { siginFormValidate, signinFormInit } from "../form/signin_form";
 import { Observer } from "mobx-react-lite";
+import TextInput from "../component/text_input";
 
 export default function SigninPage() {
   const router = useRouter();
@@ -33,29 +33,18 @@ export default function SigninPage() {
             </div>
             <div className="flex items-center justify-center w-7/12 h-full">
               <div className="w-2/3 rounded-[24px] bg-[#C4C4C4] flex flex-col items-center p-24 pb-32 relative">
-                <h1 className="w-max heading1 text-[#4D506C]">sign up</h1>
-                <input
-                  type="text"
-                  className="focus:outline-none bg-[#EDEDED] text-[#878787] px-40 rounded-[23px] h-48 w-full caption1 mt-16"
+                <h1 className="w-max heading1 text-[#4D506C]">sign in</h1>
+                <TextInput
+                  formik={formik}
+                  name="username"
                   placeholder="Username"
-                  onChange={(e) => {
-                    formik.setFieldValue("username", e.target.value);
-                  }}
                 />
-                <p className="w-full pl-24 text-red-500 caption3 h-[18px]">
-                  {formik.errors.username || ""}
-                </p>
-                <input
-                  type="Password"
-                  className="focus:outline-none bg-[#EDEDED] text-[#878787] px-40 rounded-[23px] h-48 w-full caption1 mt-16"
+                <TextInput
+                  formik={formik}
+                  name="password"
                   placeholder="Password"
-                  onChange={(e) => {
-                    formik.setFieldValue("password", e.target.value);
-                  }}
+                  type="password"
                 />
-                <p className="w-full pl-24 text-red-500 caption3 h-[18px]">
-                  {formik.errors.password || ""}
-                </p>
                 <button
                   className="focus:outline-none bg-[#008795] h-40 w-128 rounded-full text-white caption1 mt-32"
                   onClick={() => {

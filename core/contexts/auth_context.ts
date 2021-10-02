@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { createContext } from "react";
+import { postsignin } from "../services/Auth";
 
 class AuthContextClass {
   user: {
@@ -19,12 +20,13 @@ class AuthContextClass {
     this[key] = value;
   }
 
-  setUserToBuyer() {
-    this.user.role = "buyer";
-  }
-
-  setUserToAnonymous() {
-    this.user.role = "anonymous";
+  async signin(authForm: { username: string; password: string }) {
+    try {
+      await postsignin(authForm);
+    } catch (err) {
+      console.log(err);
+      alert(err.message);
+    }
   }
 }
 

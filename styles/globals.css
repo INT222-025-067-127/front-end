@@ -1,3 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "RedHatDisplay";
+  src: url("../public/font/RedHatFont.ttf");
+  font-style: normal;
+  font-weight: 400;
+}
+
+.heading1 {
+  font-family: "RedHatDisplay";
+  font-size: 48px;
+  font-weight: 900;
+}
+
+.heading2 {
+  font-family: "RedHatDisplay";
+  font-weight: 900;
+  font-size: 28px;
+}
+
+.subheading1 {
+  font-family: "RedHatDisplay";
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.subheading2 {
+    font-family: "RedHatDisplay";
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.caption1 {
+    font-family: "RedHatDisplay";
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.caption2 {
+    font-family: "RedHatDisplay";
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.caption3 {
+    font-family: "RedHatDisplay";
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.caption4 {
+    font-family: "RedHatDisplay";
+    font-weight: 500;
+    font-size: 9px;
+}

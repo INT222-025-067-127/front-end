@@ -47,9 +47,9 @@ jobs:
               sudo docker rmi int222-025-067-127/front-end:latest
               sudo docker pull ghcr.io/int222-025-067-127/front-end:latest
               sudo docker images
-     #         sudo docker-compose -f docker-compose.yml down
-     #         sudo docker-compose -f docker-compose.yml up -d
-      #        sudo docker ps
+              sudo docker-compose -f docker-compose.yml down
+              sudo docker-compose -f docker-compose.yml up -d
+              sudo docker ps
               
  
     

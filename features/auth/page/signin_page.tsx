@@ -23,6 +23,10 @@ export default function SigninPage() {
     },
   });
 
+  useEffect(() => {
+    context.setValue("signinFormik", formik)
+  }, [])
+
   return (
     <Observer>
       {() => (

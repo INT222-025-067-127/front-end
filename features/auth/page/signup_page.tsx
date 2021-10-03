@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/dist/client/router";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../../core/contexts/auth_context";
 import TextInput from "../component/text_input";
 import { signupFormInit, signupFormValidate } from "../form/signup_form";
@@ -21,6 +21,11 @@ export default function SignupPage() {
       context.signup(value);
     },
   });
+
+  useEffect(() => {
+    context.setValue("signupFormik", formik)
+  }, []);
+
   return (
     <div className="h-screen mx-128">
       <div className="flex items-center h-full">

@@ -12,7 +12,7 @@ export default function TextInput(props: TextInputProps) {
     <Fragment>
       <input
         type={props.type || "text"}
-        className="focus:outline-none rounded-[16px]"
+        className="focus:outline-none rounded-[16px] px-16 h-32 border w-full caption1"
         placeholder={props.placeholder}
         onChange={props.onChange}
       />

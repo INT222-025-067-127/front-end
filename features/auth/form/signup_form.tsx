@@ -5,7 +5,7 @@ export const signupFormInit = {
   password: "",
   firstname: "",
   lastname: "",
-  email: ""
+  email: "",
 };
 
 export const signupFormValidate = Yup.object().shape({
@@ -23,5 +23,7 @@ export const signupFormValidate = Yup.object().shape({
     ),
   firstname: Yup.string().required("This field is required"),
   lastname: Yup.string().required("This field is required"),
-  email: Yup.string().email("Please insert a valid email")
+  email: Yup.string()
+    .required("This field is required")
+    .email("Please insert a valid email"),
 });

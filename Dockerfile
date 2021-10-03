@@ -1,17 +1,30 @@
-# base image
-FROM node:alpine
+FROM node:14-alpine AS builder
 
-# create & set working directory
-RUN mkdir -p /usr/src
-WORKDIR /usr/src
+# set working directory
+WORKDIR /usr/src/app
 
-# copy source files
-COPY . /usr/src
+# install app dependencies
+#copies package.json and package-lock.json to Docker environment
+COPY package.json ./
 
-# install dependencies
-RUN yarn install
+# Installs all node packages
+RUN npm install 
 
-# start app
-RUN yarn build
-EXPOSE 3000
-CMD ["yarn", "start"]
+# Copies everything over to Docker environment
+COPY . .
+
+RUN npm run build
+
+#pull the official nginx:1.19.0 base image
+FROM nginx:1.21.3-alpine
+#copies React to the container directory
+# Set working directory to nginx resources directory
+WORKDIR /usr/share/nginx/html
+# Remove default nginx static resources
+RUN rm -rf ./*
+# Copies static resources from builder stage
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Containers run nginx with global directives and daemon off
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+

@@ -1,13 +1,8 @@
 import MainLayout from "../core/components/main_layout";
+import ProductPage from "../features/products/page/product_page";
 
 const Home = () => {
-  return (
-    <div>
-      <MainLayout>
-        
-      </MainLayout>
-    </div>
-  );
+  return <ProductPage />;
 };
 
 export default Home;

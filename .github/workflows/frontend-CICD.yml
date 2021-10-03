@@ -46,9 +46,9 @@ jobs:
               echo $CR_PAT | sudo docker login ghcr.io -u nattanunkorn9743 --password-stdin
               sudo docker pull ghcr.io/int222-025-067-127/front-end:latest
               sudo docker images
-              sudo docker rm front-end -f
-              sudo docker run -p 3000:3000 -d --name front-end ghcr.io/int222-025-067-127/front-end:latest
-              sudo docker ps
+ #             sudo docker rm front-end -f
+#              sudo docker run -p 3000:3000 -d --name front-end ghcr.io/int222-025-067-127/front-end:latest
+ #             sudo docker ps
               
  
     

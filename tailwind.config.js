@@ -50,7 +50,7 @@ module.exports = {
       1280: "1280px",
     },
     screens: {
-      'tablet': '640px',
+      'tablet': '875px',
       // => @media (min-width: 640px) { ... }
 
       'laptop': '1280px',

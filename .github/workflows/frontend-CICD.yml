@@ -43,10 +43,10 @@ jobs:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
-          host: 20.205.233.130
-          username: 'int222project'
-          password: 'Cake.1234567890'
-          port: 22
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
           script: |
               ls
               export CR_PAT=${{ secrets.GITHUB_TOKEN }}

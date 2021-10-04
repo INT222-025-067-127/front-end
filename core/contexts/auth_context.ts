@@ -25,6 +25,24 @@ class AuthContextClass {
     this[key] = value;
   }
 
+  getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+    
+    for (const i in cookieArr) {
+      const cookiePair = cookieArr[i].split("=");
+      if (name == cookiePair[0].trim()) {
+        return decodeURIComponent(cookiePair[1]);
+      }
+    }
+    return "a ";
+  }
+
+  setCookie(name: string, value: string, timeToLive?: number) {
+    let cookie = name + "=" + encodeURIComponent(value);
+    cookie += "; max-age=" + timeToLive;
+    document.cookie = cookie;
+  }
+
   async signin(authForm: { username: string; password: string }) {
     try {
       const resp = await postsignin(authForm);
@@ -33,7 +51,7 @@ class AuthContextClass {
       };
 
       if (resp.status === 200) {
-        document.cookie = `pluem-token=${resp.data.body.token}`;
+        this.setCookie("pluem-token", resp.data.body.token, 1800);
         Router.prototype.push("/");
       }
     } catch (err) {
@@ -67,14 +85,14 @@ class AuthContextClass {
 
   async fetchMe() {
     try {
-      const resp = await fetchToken(document.cookie.split("=")[1]);
+      const resp = await fetchToken(this.getCookie("pluem-token"));
       if (resp.status !== 204) {
         this.user = {
           role: "buyer",
         };
       }
     } catch (err) {
-      if (err.response.status !== 401) {
+      if (err.response?.status !== 401) {
         console.log(err);
         alert(err.message);
       }

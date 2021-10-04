@@ -10,8 +10,7 @@ RUN yarn install --frozen-lockfile
 FROM node:alpine AS builder
 WORKDIR /app
 COPY . .
-COPY .env ./
-COPY next.config.js ./
+
 COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
@@ -29,6 +28,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
+COPY .env ./
+COPY next.config.js ./
 USER nextjs
 
 

@@ -33,7 +33,7 @@ class AuthContextClass {
       };
 
       if (resp.status === 200) {
-        document.cookie = `${process.env.TOKEN_COOKIE_NAME}=${resp.data.body.token}`;
+        document.cookie = `pluem-token=${resp.data.body.token}`;
         Router.prototype.push("/");
       }
     } catch (err) {

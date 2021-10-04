@@ -1,30 +1,41 @@
-FROM node:14.18.0 AS builder
+# Install dependencies only when needed
+FROM node:alpine AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-# set working directory
-WORKDIR /usr/src/app
-
-# install app dependencies
-#copies package.json and package-lock.json to Docker environment
-COPY package.json ./
-COPY .env ./
-
-# Installs all node packages
-RUN npm install 
-
-# Copies everything over to Docker environment
+# Rebuild the source code only when needed
+FROM node:alpine AS builder
+WORKDIR /app
 COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
-RUN npm run build
+# Production image, copy all the files and run next
+FROM node:alpine AS runner
+WORKDIR /app
 
-#pull the official nginx:1.19.0 base image
-FROM nginx:1.21.3-alpine
-#copies React to the container directory
-# Set working directory to nginx resources directory
-WORKDIR /usr/share/nginx/html
-# Remove default nginx static resources
-RUN rm -rf ./*
-# Copies static resources from builder stage
-COPY --from=builder /usr/src/app/.next /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Containers run nginx with global directives and daemon off
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ENV NODE_ENV production
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+COPY .env ./
+USER nextjs
+
+
+EXPOSE 3000
+
+# Next.js collects completely anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line in case you want to disable telemetry.
+# ENV NEXT_TELEMETRY_DISABLED 1
+
+CMD ["yarn", "start"]

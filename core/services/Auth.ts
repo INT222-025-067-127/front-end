@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const postsignin = (body: { username: string; password: string }) => {
-  return axios.post(`${process.env.API}/users/login`, body);
+  return axios.post(`${process.env.BE_API}/users/login`, body);
 };
 
 export const postsignup = (body: {
@@ -11,11 +11,11 @@ export const postsignup = (body: {
   lastname: string;
   email: string;
 }) => {
-  return axios.post(`${process.env.API}/users/register`, body);
+  return axios.post(`${process.env.BE_API}/users/register`, body);
 };
 
 export const fetchToken = (token: string) => {
-  return axios.get(`${process.env.API}/auth/check`, {
+  return axios.get(`${process.env.BE_API}/auth/check`, {
     headers: {
       "pluem-token": token,
     },

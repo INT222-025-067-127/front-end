@@ -21,6 +21,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+    - name : Create env file
+      run : |
+          touch .env
+          echo API=${{ secrets.API }} >> .env
+          echo TOKEN_COOKIE_NAME=${{ secrets.TOKEN_COOKIE_NAME }} >> .env
+          ls -a
     - name: build docker images
       run: |
         docker build . --tag ghcr.io/int222-025-067-127/front-end

@@ -5,6 +5,5 @@ export const getProduct = () => {
 };
 
 export const getProductByType = (id: string) => {
-  console.log(process.env.API)
   return axios.get(`${process.env.API}/types/getTypeProduct/${id}`);
 };

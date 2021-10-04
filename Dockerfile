@@ -1,11 +1,4 @@
-# Install dependencies only when needed
 FROM node:14.18.0 AS builder
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-COPY package.json yarn.lock ./
-COPY .env ./
-RUN yarn install --frozen-lockfile
 
 # set working directory
 WORKDIR /usr/src/app
@@ -13,6 +6,7 @@ WORKDIR /usr/src/app
 # install app dependencies
 #copies package.json and package-lock.json to Docker environment
 COPY package.json ./
+COPY .env ./
 
 # Installs all node packages
 RUN npm install 
@@ -22,6 +16,7 @@ COPY . .
 
 RUN npm run build
 
+#pull the official nginx:1.19.0 base image
 FROM nginx:1.21.3-alpine
 #copies React to the container directory
 # Set working directory to nginx resources directory

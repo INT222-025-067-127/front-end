@@ -50,13 +50,15 @@ module.exports = {
       1280: "1280px",
     },
     screens: {
-      'tablet': '875px',
+      tablet: "768px",
       // => @media (min-width: 640px) { ... }
 
-      'laptop': '1280px',
+      "tablet-xl": "1024px",
+
+      laptop: "1280px",
       // => @media (min-width: 1024px) { ... }
 
-      'desktop': '1920px',
+      desktop: "1920px",
       // => @media (min-width: 1280px) { ... }
     },
   },

@@ -24,19 +24,19 @@ export default function SigninPage() {
   });
 
   useEffect(() => {
-    context.setValue("signinFormik", formik)
-  }, [])
+    context.setValue("signinFormik", formik);
+  }, []);
 
   return (
     <Observer>
       {() => (
-        <div className="h-screen mx-128">
-          <div className="flex items-center h-full">
-            <div className="flex items-center justify-center w-5/12 mt-48">
+        <div className="h-screen mx-24 laptop:mx-128">
+          <div className="flex items-center w-full h-full">
+            <div className="items-center justify-center hidden w-5/12 mt-48 laptop:flex">
               <img src="/images/kaiya_graphic.svg" />
             </div>
-            <div className="flex items-center justify-center w-7/12 h-full">
-              <div className="w-2/3 rounded-[24px] bg-[#C4C4C4] flex flex-col items-center p-24 pb-32 relative">
+            <div className="flex items-center justify-center w-full h-full laptop:w-7/12">
+              <div className="w-5/6 laptop:w-2/3 rounded-[24px] bg-[#C4C4C4] flex flex-col items-center p-24 pb-32 relative">
                 <h1 className="w-max heading1 text-[#4D506C]">sign in</h1>
                 <TextInput
                   formik={formik}

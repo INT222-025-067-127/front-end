@@ -53,7 +53,7 @@ export default function ProductPage() {
                 <i className="fas fa-spinner animate-spin text-[#2C5675] text-6xl" />
               </div>
             ) : (
-              <div className="grid w-full grid-cols-1 mt-32 tablet:grid-cols-3 gap-y-16 tablet:gap-y-32">
+              <div className="grid w-full grid-cols-1 mt-32 tablet:grid-cols-2 tablet-xl:grid-cols-3 gap-y-16 tablet:gap-y-32">
                 {_.map(context.filterProduct() || [], (product) => (
                   <div className="flex justify-center w-full">
                     <div className="w-2/3 tablet:w-5/6">

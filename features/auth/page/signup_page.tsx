@@ -23,27 +23,27 @@ export default function SignupPage() {
   });
 
   useEffect(() => {
-    context.setValue("signupFormik", formik)
+    context.setValue("signupFormik", formik);
   }, []);
 
   return (
-    <div className="h-screen mx-128">
-      <div className="flex items-center h-full">
-        <div className="flex items-center justify-center w-5/12 mt-48">
+    <div className="h-screen mx-24 laptop:mx-128">
+      <div className="flex items-center w-full h-full">
+        <div className="items-center justify-center hidden w-5/12 mt-48 laptop:flex">
           <img src="/images/kaiya_graphic.svg" />
         </div>
-        <div className="flex items-center justify-center w-7/12 h-full">
-          <div className="w-2/3 rounded-[24px] bg-[#C4C4C4] flex flex-col items-center p-24">
-            <h1 className="w-max heading1 text-[#4D506C]">sign up</h1>
-            <div className="flex w-full space-x-8">
-              <div className="w-1/2">
+        <div className="flex items-center justify-center w-full h-full laptop:w-7/12">
+          <div className="w-5/6 laptop:w-2/3 rounded-[24px] bg-[#C4C4C4] flex flex-col items-center p-24 pb-32 relative">
+            <h1 className="w-max heading1 text-[#4D506C] mb-8">sign up</h1>
+            <div className="flex flex-col w-full space-x-0 tablet:space-x-8 tablet:flex-row">
+              <div className="w-full tablet:w-1/2">
                 <TextInput
                   formik={formik}
                   name="firstname"
                   placeholder="Firstname"
                 />
               </div>
-              <div className="w-1/2">
+              <div className="w-full tablet:w-1/2">
                 <TextInput
                   formik={formik}
                   name="lastname"
@@ -60,7 +60,7 @@ export default function SignupPage() {
               type="password"
             />
             <button
-              className="focus:outline-none bg-[#008795] h-40 w-128 rounded-full text-white caption1 mt-32"
+              className="focus:outline-none bg-[#008795] h-40 w-128 rounded-full text-white caption1 mt-8 tablet:mt-32"
               onClick={() => formik.submitForm()}
             >
               sign up

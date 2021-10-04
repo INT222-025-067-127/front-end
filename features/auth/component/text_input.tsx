@@ -13,7 +13,7 @@ export default function TextInput(props: TextInputProps) {
     <Fragment>
       <input
         type={props.type || "text"}
-        className="focus:outline-none bg-[#EDEDED] text-[#878787] px-40 rounded-[23px] h-48 w-full caption1 mt-16"
+        className="focus:outline-none bg-[#EDEDED] text-[#878787] px-[20px] tablet:px-40 rounded-[23px] h-48 w-full caption1 tablet:mt-16"
         placeholder={props.placeholder}
         onChange={(e) => {
           props.formik.setFieldValue(props.name, e.target.value);

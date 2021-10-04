@@ -55,12 +55,11 @@ export default function MainLayout({ children, fullWidth = false }) {
                 login
               </button>
             ) : (
-              <div className="px-[36px] tablet:block hidden">
-                <img
-                  src="/images/user.svg"
-                  className="w-40 h-40 rounded-full cursor-pointer"
-                />
-              </div>
+              <button
+                className="bg-[#367cb0] rounded-[42px] w-[112px] h-40 text-white cursor-pointer laptop:block hidden subheading2"
+              >
+                logout
+              </button>
             )}
             <button
               className="w-[24px] h-[24px] rounded-[4px] border border-white flex justify-center items-center laptop:hidden relative"
@@ -79,6 +78,11 @@ export default function MainLayout({ children, fullWidth = false }) {
                       {route.name}
                     </p>
                   ))}
+                  {authContext.user?.role === "anonymous" ? (
+                    <p className="py-8 text-[#83817F] subheading2" onClick={() => router.push("/signin")}>Login</p>
+                  ) : (
+                    <p className="py-8 text-[#83817F] subheading2">Logout</p>
+                  )}
                 </div>
               )}
             </button>

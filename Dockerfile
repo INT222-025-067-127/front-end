@@ -4,6 +4,7 @@ FROM node:alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json yarn.lock ./
+COPY .env /app
 RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
@@ -28,6 +29,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
 USER nextjs
+
 
 EXPOSE 3000
 

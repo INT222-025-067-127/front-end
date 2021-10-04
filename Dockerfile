@@ -4,7 +4,7 @@ FROM node:alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json yarn.lock ./
-#COPY .env ./
+COPY .env ./
 RUN yarn install --frozen-lockfile
 
 # set working directory
@@ -13,7 +13,6 @@ WORKDIR /usr/src/app
 # install app dependencies
 #copies package.json and package-lock.json to Docker environment
 COPY package.json ./
-COPY .env ./
 
 # Installs all node packages
 RUN npm install 

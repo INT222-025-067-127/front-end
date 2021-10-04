@@ -24,7 +24,7 @@ jobs:
     - name : Create env file
       run : |
           touch .env
-          echo BE_API=${{ secrets.API }} >> .env
+          echo BE_API=${{ secrets.BE_API }} >> .env
           echo TOKEN_COOKIE_NAME=${{ secrets.TOKEN_COOKIE_NAME }} >> .env
           ls -a
           cat .env

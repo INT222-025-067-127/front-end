@@ -9,5 +9,5 @@ export const getProductByType = (id: string) => {
 };
 
 export const getProductDetail = (id: string | string[]) => {
-  return axios.get(`${process.env.BE_API}/products/getProduct/${id}`);
+  return axios.get(`${process.env.API}/products/getProduct/${id}`);
 };

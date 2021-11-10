@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import _ from "lodash";
 import { Observer } from "mobx-react-lite";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
 import MainLayout from "../../../core/components/main_layout";
 import { productDetailContext } from "../context/product_detail_context";
@@ -10,8 +10,10 @@ export default function ProductDetailPage() {
   const context = useContext(productDetailContext);
 
   const router = useRouter();
+  console.log(router.query.id)
 
   useEffect(() => {
+    console.log(router.query.id)
     context.preparation(router.query.id);
   }, []);
 

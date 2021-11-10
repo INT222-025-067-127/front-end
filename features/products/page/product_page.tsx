@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { Observer } from "mobx-react-lite";
+import { useRouter } from "next/dist/client/router";
 import React, { useContext, useEffect } from "react";
 import MainLayout from "../../../core/components/main_layout";
 import ProductCard from "../component/product_card";
@@ -9,6 +10,8 @@ import { productContext } from "../context/product_context";
 
 export default function ProductPage() {
   const context = useContext(productContext);
+
+  const router = useRouter();
 
   useEffect(() => {
     context.prepare();
@@ -55,13 +58,18 @@ export default function ProductPage() {
             ) : (
               <div className="grid w-full grid-cols-1 mt-32 tablet:grid-cols-3 gap-y-16 tablet:gap-y-32">
                 {_.map(context.filterProduct() || [], (product) => (
-                  <div className="flex justify-center w-full">
+                  <div
+                    className="flex justify-center w-full"
+                  >
                     <div className="w-2/3 tablet:w-5/6">
                       <ProductCard
                         id={product.product_id}
                         name={product.product_name}
                         price={product.price}
                         image="/images/mock.png"
+                        onClick={() => {
+                          router.push(`/product/${product.product_id}`);
+                        }}
                       />
                     </div>
                   </div>

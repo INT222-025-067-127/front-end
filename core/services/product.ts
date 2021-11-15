@@ -11,3 +11,11 @@ export const getProductByType = (id: string) => {
 export const getProductDetail = (id: string | string[]) => {
   return axios.get(`${process.env.API}/products/getProduct/${id}`);
 };
+
+export const postProduct = (data) => {
+  return axios.post(`${process.env.API}/products/addProduct`, data);
+};
+
+export const putProduct = (data, id: string | string[]) => {
+  return axios.put(`${process.env.API}/products/editProduct/${id}`, data);
+};

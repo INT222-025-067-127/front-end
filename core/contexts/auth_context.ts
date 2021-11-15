@@ -6,7 +6,7 @@ import { fetchToken, postsignin, postsignup } from "../services/Auth";
 
 class AuthContextClass {
   user: {
-    role: "anonymous" | "buyer" | "seller";
+    role: "anonymous" | "buyer" | "admin";
   };
   isUserAlreadyExists: boolean;
 
@@ -25,6 +25,26 @@ class AuthContextClass {
     this[key] = value;
   }
 
+  setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+  getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
   async signin(authForm: { username: string; password: string }) {
     try {
       const resp = await postsignin(authForm);
@@ -33,11 +53,11 @@ class AuthContextClass {
       };
 
       if (resp.status === 200) {
-        document.cookie = `pluem-token=${resp.data.body.token}`;
+        this.setCookie(process.env.TOKEN_COOKIE_NAME, resp.data.body.token, 1);
         Router.prototype.push("/");
       }
     } catch (err) {
-      if (err.response.status === 401) {
+      if (err.response?.status === 401) {
         this.signinFormik.setFieldError(
           "password",
           "username or password invalid"
@@ -67,10 +87,12 @@ class AuthContextClass {
 
   async fetchMe() {
     try {
-      const resp = await fetchToken(document.cookie.split("=")[1]);
+      const resp: any = await fetchToken(
+        this.getCookie(process.env.TOKEN_COOKIE_NAME)
+      );
       if (resp.status !== 204) {
         this.user = {
-          role: "buyer",
+          role: resp.data.user.role.role_name,
         };
       }
     } catch (err) {

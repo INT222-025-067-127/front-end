@@ -1,6 +1,6 @@
-import ProductDetailPage from "../../features/products/page/product_detail_page";
+import ProductDetailPage from "../../../features/products/page/product_detail_page";
 
-const Home = () => {
+const ProductDetailRoute = () => {
   return <ProductDetailPage />;
 };
 
@@ -19,4 +19,4 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default Home;
+export default ProductDetailRoute;

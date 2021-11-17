@@ -7,5 +7,5 @@ export const buyProduct = (data: {
   user_id: string;
   product_id: string;
 }) => {
-  return axios.post(`${process.env.API}/history/addHistory`, data);
+  return axios.post(`${process.env.BE_API}/history/addHistory`, data);
 };

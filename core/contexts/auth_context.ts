@@ -6,7 +6,16 @@ import { fetchToken, postsignin, postsignup } from "../services/Auth";
 
 class AuthContextClass {
   user: {
-    role: "anonymous" | "buyer" | "seller";
+    email?: string;
+    exp?: number;
+    firstname?: string;
+    iat?: number;
+    lastname?: string;
+    password?: string;
+    role: { role_id?: number; role_name: "anonymous" | "buyer" | "admin" };
+    role_id?: number;
+    user_id?: number;
+    username?: string;
   };
   isUserAlreadyExists: boolean;
 
@@ -15,7 +24,7 @@ class AuthContextClass {
 
   constructor() {
     this.user = {
-      role: "anonymous",
+      role: { role_name: "anonymous" },
     };
     this.isUserAlreadyExists = false;
     makeAutoObservable(this);
@@ -25,37 +34,36 @@ class AuthContextClass {
     this[key] = value;
   }
 
-  getCookie(name) {
-    let cookieArr = document.cookie.split(";");
-    
-    for (const i in cookieArr) {
-      const cookiePair = cookieArr[i].split("=");
-      if (name == cookiePair[0].trim()) {
-        return decodeURIComponent(cookiePair[1]);
-      }
+  setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      expires = "; expires=" + date.toUTCString();
     }
-    return "a ";
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
   }
-
-  setCookie(name: string, value: string, timeToLive?: number) {
-    let cookie = name + "=" + encodeURIComponent(value);
-    cookie += "; max-age=" + timeToLive;
-    document.cookie = cookie;
+  getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
   }
 
   async signin(authForm: { username: string; password: string }) {
     try {
       const resp = await postsignin(authForm);
-      this.user = {
-        role: resp.data.body.role.role_name,
-      };
 
       if (resp.status === 200) {
-        this.setCookie("pluem-token", resp.data.body.token, 1800);
+        this.setCookie(process.env.TOKEN_COOKIE_NAME, resp.data.body.token, 1);
         Router.prototype.push("/");
       }
     } catch (err) {
-      if (err.response.status === 401) {
+      if (err.response?.status === 401) {
         this.signinFormik.setFieldError(
           "password",
           "username or password invalid"
@@ -85,11 +93,11 @@ class AuthContextClass {
 
   async fetchMe() {
     try {
-      const resp = await fetchToken(this.getCookie("pluem-token"));
+      const resp: any = await fetchToken(
+        this.getCookie(process.env.TOKEN_COOKIE_NAME)
+      );
       if (resp.status !== 204) {
-        this.user = {
-          role: "buyer",
-        };
+        this.user = resp.data.user;
       }
     } catch (err) {
       if (err.response?.status !== 401) {

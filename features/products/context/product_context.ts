@@ -12,12 +12,7 @@ class ProductContext {
     type_name: string;
   }>;
 
-  products: Array<{
-    product_id: string;
-    product_name: string;
-    price: number;
-    type_id?: string;
-  }>;
+  products: Array<any>;
 
   isloading: boolean;
 
@@ -38,10 +33,7 @@ class ProductContext {
       this.isloading = true;
       const resp = await getProduct();
       this.products = _.map(resp.data.body, (product) => ({
-        product_id: product.product_id,
-        product_name: product.product_name,
-        price: product.price,
-        type_id: product.types.type_id,
+        ...product,
       }));
       this.isloading = false;
     } catch (err) {

@@ -9,7 +9,7 @@ import { Observer } from "mobx-react-lite";
 
 const route = [
   { name: "Product", path: "/" },
-  { name: "Cart", path: "/Cart" },
+  { name: "Cart", path: "/cart" },
   { name: "Members", path: "/members" },
 ];
 
@@ -47,7 +47,7 @@ export default function MainLayout({ children, fullWidth = false }) {
               ))}
             </div>
 
-            {authContext.user?.role === "anonymous" ? (
+            {authContext.user?.role.role_name === "anonymous" ? (
               <button
                 className="bg-[#367cb0] rounded-[42px] w-[112px] h-40 text-white cursor-pointer laptop:block hidden subheading2"
                 onClick={() => router.push("/signin")}

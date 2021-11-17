@@ -25,7 +25,7 @@ export default function ProductPage() {
       {() => (
         <MainLayout>
           <div className="relative pt-16 pb-32 tablet:pt-72">
-            {authContext.user.role === "admin" && (
+            {authContext.user.role.role_name === "admin" && (
               <button className="fixed bottom-[16px] right-[16px] laptop:bottom-[32px] laptop:right-[256px] w-[64px] rounded-full h-[64px] bg-[#2C5675] flex justify-center items-center cursor-pointer" onClick={() => {router.push("/product/add")}}>
                 <i className="text-5xl text-white fas fa-plus"></i>
               </button>
@@ -67,10 +67,8 @@ export default function ProductPage() {
                 {_.map(context.filterProduct() || [], (product) => (
                   <div className="flex justify-center w-full">
                     <div className="w-2/3 tablet:w-5/6">
-                      <ProductCard
-                        id={product.product_id}
-                        name={product.product_name}
-                        price={product.price}
+                      <ProductCard                        
+                        product={product}
                         image="/images/mock.png"
                         onClick={() => {
                           router.push(`/product/${product.product_id}`);

@@ -6,7 +6,16 @@ import { fetchToken, postsignin, postsignup } from "../services/Auth";
 
 class AuthContextClass {
   user: {
-    role: "anonymous" | "buyer" | "admin";
+    email?: string;
+    exp?: number;
+    firstname?: string;
+    iat?: number;
+    lastname?: string;
+    password?: string;
+    role: { role_id?: number; role_name: "anonymous" | "buyer" | "admin" };
+    role_id?: number;
+    user_id?: number;
+    username?: string;
   };
   isUserAlreadyExists: boolean;
 
@@ -15,7 +24,7 @@ class AuthContextClass {
 
   constructor() {
     this.user = {
-      role: "anonymous",
+      role: { role_name: "anonymous" },
     };
     this.isUserAlreadyExists = false;
     makeAutoObservable(this);
@@ -48,9 +57,6 @@ class AuthContextClass {
   async signin(authForm: { username: string; password: string }) {
     try {
       const resp = await postsignin(authForm);
-      this.user = {
-        role: resp.data.body.role.role_name,
-      };
 
       if (resp.status === 200) {
         this.setCookie(process.env.TOKEN_COOKIE_NAME, resp.data.body.token, 1);
@@ -91,9 +97,7 @@ class AuthContextClass {
         this.getCookie(process.env.TOKEN_COOKIE_NAME)
       );
       if (resp.status !== 204) {
-        this.user = {
-          role: resp.data.user.role.role_name,
-        };
+        this.user = resp.data.user;
       }
     } catch (err) {
       if (err.response.status !== 401) {

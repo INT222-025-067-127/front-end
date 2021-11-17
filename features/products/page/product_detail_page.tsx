@@ -51,7 +51,7 @@ export default function ProductDetailPage() {
                   <h1 className="subheading1 text-[#2C5675]">
                     {context.product?.product_name || ""}
                   </h1>
-                  {authContext.user.role === "admin" && (
+                  {authContext.user.role.role_name === "admin" && (
                     <div
                       className="p-[4px] hover:bg-gray-300 rounded-[4px] active:bg-gray-400"
                       onClick={() =>
@@ -88,7 +88,7 @@ export default function ProductDetailPage() {
                 </p>
               </div>
 
-              {authContext.user.role === "buyer" && (
+              {authContext.user.role.role_name === "buyer" && (
                 <div className="max-w-[512px] w-full mb-[32px]">
                   <div className="flex w-full space-x-[32px]">
                     <input

@@ -86,7 +86,7 @@ class ProductCreateContext {
       alert(err.message);
     } finally {
       if (!this.isCreating) {
-        Router.prototype.push("/");
+        // Router.prototype.push("/");
       }
       this.isCreating = false;
     }

@@ -80,10 +80,8 @@ class ProductCreateContext {
 
             await uploadImage(resp.data.body.product_id, formData);
           }
-          console.log(size.sizes);
         })
       );
-      console.log("done");
 
       this.isCreating = false;
     } catch (err) {

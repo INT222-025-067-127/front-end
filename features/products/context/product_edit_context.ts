@@ -4,7 +4,11 @@ import _ from "lodash";
 import { getType } from "../../../core/services/Type";
 import { getBrands } from "../../../core/services/brand";
 import { getSize } from "../../../core/services/size";
-import { getProductDetail, putProduct } from "../../../core/services/product";
+import {
+  deleteProduct,
+  getProductDetail,
+  putProduct,
+} from "../../../core/services/product";
 import { FormikProps } from "formik";
 import dayjs from "dayjs";
 import { Router } from "next/router";
@@ -113,6 +117,18 @@ class ProductEditContext {
         Router.prototype.push("/");
       }
       this.isUpdating = false;
+    }
+  }
+
+  async onDelete(id: string | string[]) {
+    try {
+      if (confirm("Are you sure?")) {
+        await deleteProduct(id);
+      }
+      Router.prototype.push("/");
+    } catch (err) {
+      console.log(err);
+      alert(err.message);
     }
   }
 }

@@ -60,26 +60,31 @@ class ProductCreateContext {
     }
   }
 
-  createProduct(value) {
+  async createProduct(value) {
     this.isCreating = true;
     try {
-      _.map(this.sizes, async (size) => {
-        if (size.selected && size.qty > 0) {
-          const data = {
-            ...value,
-            brand_id: Number(value.brand_id),
-            type_id: Number(value.type_id),
-            quantity: Number(size.qty),
-            size_id: size.size_id,
-          };
-          const resp = await postProduct(data);
+      await Promise.all(
+        _.map(this.sizes, async (size) => {
+          if (size.selected && size.qty > 0) {
+            const data = {
+              ...value,
+              brand_id: Number(value.brand_id),
+              type_id: Number(value.type_id),
+              quantity: Number(size.qty),
+              size_id: size.size_id,
+            };
+            const resp = await postProduct(data);
 
-          const formData = new FormData();
-          formData.append("image", value.image);
+            const formData = new FormData();
+            formData.append("image", value.image);
 
-          await uploadImage(resp.data.body.product_id, formData);
-        }
-      });
+            await uploadImage(resp.data.body.product_id, formData);
+          }
+          console.log(size.sizes);
+        })
+      );
+      console.log("done");
+
       this.isCreating = false;
     } catch (err) {
       console.log(err);

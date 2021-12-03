@@ -181,12 +181,20 @@ export default function ProductEditPage() {
                       <p>{error}</p>
                     ))}
                   </div>
-                  <button
-                    className="rounded-[4px] bg-[#236EA6] hover:bg-[#196096] active:bg-[#0f4d7c] text-white subheading2 h-[48px] px-[16px]"
-                    onClick={() => formik.submitForm()}
-                  >
-                    Save Product
-                  </button>
+                  <div className="space-x-[8px]">
+                    <button
+                      className="rounded-[4px] bg-[#ff424b] hover:bg-[#ff2530] active:bg-[#b12e34] text-white subheading2 h-[48px] px-[16px]"
+                      onClick={() => context.onDelete(router.query.id)}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="rounded-[4px] bg-[#236EA6] hover:bg-[#196096] active:bg-[#0f4d7c] text-white subheading2 h-[48px] px-[16px]"
+                      onClick={() => formik.submitForm()}
+                    >
+                      Save Product
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

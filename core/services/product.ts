@@ -19,3 +19,7 @@ export const postProduct = (data) => {
 export const putProduct = (data, id: string | string[]) => {
   return axios.put(`${process.env.BE_API}/products/editProduct/${id}`, data);
 };
+
+export const deleteProduct = (id: string | string[]) => {
+  return axios.delete(`${process.env.BE_API}/products/delete/${id}`);
+};

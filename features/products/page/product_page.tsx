@@ -69,7 +69,7 @@ export default function ProductPage() {
                     <div className="w-2/3 tablet:w-5/6">
                       <ProductCard                        
                         product={product}
-                        image="/images/mock.png"
+                        image={`${process.env.BE_API}/images/getImg/${product.product_id}`}
                         onClick={() => {
                           router.push(`/product/${product.product_id}`);
                         }}

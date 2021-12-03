@@ -5,11 +5,13 @@ import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
 import MainLayout from "../../../core/components/main_layout";
 import { AuthContext } from "../../../core/contexts/auth_context";
+import { cartContext } from "../../../core/contexts/cart_context";
 import { productDetailContext } from "../context/product_detail_context";
 
 export default function ProductDetailPage() {
   const context = useContext(productDetailContext);
   const authContext = useContext(AuthContext);
+  const CartContext = useContext(cartContext);
 
   const router = useRouter();
   console.log(router.query.id);
@@ -29,10 +31,10 @@ export default function ProductDetailPage() {
                 <div className="absolute w-[256px] h-[256px] bg-[#B0B0B0] rounded-full" />
                 <img
                   className="absolute w-[256px] h-full pt-[48px] pb-[36px]"
-                  src=""
+                  src={`${process.env.BE_API}/images/getImg/${router.query.id}`}
                 />
               </div>
-              <div className="flex justify-around w-full">
+              {/* <div className="flex justify-around w-full">
                 <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
                   <img className="w-full p-[16px] h-full" src="" />
                 </div>
@@ -42,7 +44,7 @@ export default function ProductDetailPage() {
                 <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
                   <img className="w-full p-[16px] h-full" src="" />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex flex-col items-center justify-between w-full laptop:w-3/5 space-y-[16px]">
@@ -103,7 +105,9 @@ export default function ProductDetailPage() {
                     />
                     <button
                       className="bg-[#236EA6] flex-grow text-white subheading2 rounded-[4px]"
-                      onClick={() => {}}
+                      onClick={() => {
+                        CartContext.addProduct(context.product, context.amount);
+                      }}
                     >
                       Add to Cart
                     </button>

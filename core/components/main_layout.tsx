@@ -6,6 +6,7 @@ import _ from "lodash";
 import { AuthContext } from "../contexts/auth_context";
 import { mainLayoutContext } from "../contexts/main_layout_context";
 import { Observer } from "mobx-react-lite";
+import { cartContext } from "../contexts/cart_context";
 
 const route = [
   { name: "Product", path: "/" },
@@ -18,6 +19,7 @@ export default function MainLayout({ children, fullWidth = false }) {
 
   const context = useContext(mainLayoutContext);
   const authContext = useContext(AuthContext);
+  const CartContext = useContext(cartContext);
 
   return (
     <Observer>
@@ -31,20 +33,51 @@ export default function MainLayout({ children, fullWidth = false }) {
               />
             </Link>
             <div className="laptop:flex justify-center space-x-112 flex-grow text-[#83817F] hidden">
-              {_.map(route, (route) => (
-                <Link href={`${route.path}`} key={route.name}>
-                  <button
-                    className={classnames("border-[#83817f] px-4 subheading1", {
+              <Link href={`/`} key={"Product"}>
+                <button
+                  className={classnames("border-[#83817f] px-4 subheading1", {
+                    "border-b-2":
+                      _.includes(
+                        `/${router.asPath.split("/")[1]}`,
+                        "product"
+                      ) || router.asPath === "/",
+                  })}
+                >
+                  Product
+                </button>
+              </Link>
+              <Link href={`/cart`} key="Cart">
+                <div
+                  className={classnames(
+                    "border-[#83817f] px-4 subheading1 relative cursor-pointer",
+                    {
                       "border-b-2": _.includes(
                         `/${router.asPath.split("/")[1]}`,
-                        route.path
+                        "cart"
                       ),
-                    })}
-                  >
-                    {route.name}
-                  </button>
-                </Link>
-              ))}
+                    }
+                  )}
+                >
+                  Cart
+                  {CartContext.cart?.length > 0 && (
+                    <div className="absolute top-[-4px] right-[-12px] text-white bg-red-400 rounded-full caption3 w-[16px] h-[16px]">
+                      <p className="text-center">{CartContext.cart.length}</p>
+                    </div>
+                  )}
+                </div>
+              </Link>
+              <Link href={`/member`} key="Member">
+                <button
+                  className={classnames("border-[#83817f] px-4 subheading1", {
+                    "border-b-2": _.includes(
+                      `/${router.asPath.split("/")[1]}`,
+                      "member"
+                    ),
+                  })}
+                >
+                  Member
+                </button>
+              </Link>
             </div>
 
             {authContext.user?.role.role_name === "anonymous" ? (

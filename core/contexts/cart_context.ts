@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx";
 import _ from "lodash";
 import { buyProduct } from "../services/cart";
 import dayjs from "dayjs";
+import { Router } from "next/router";
 
 class CartContext {
   cart;
@@ -17,6 +18,7 @@ class CartContext {
   // ACTION
   //-------------------
   setValue(key: string, value: any) {
+    this.cart = [];
     this[key] = value;
   }
 
@@ -45,22 +47,33 @@ class CartContext {
         size: product.sizes.sizes,
       });
     } else {
-      this.cart[index].quantity += quantity;
+      if (this.cart[index].quantity + quantity <= 0) {
+        this.cart.splice(index, 1);
+      } else {
+        this.cart[index].quantity += quantity;
+      }
     }
     localStorage.setItem("cart", JSON.stringify(this.cart));
   }
 
   async buyAll(user_id) {
-    /* buy all products in cart */
-    _.forEach(this.cart, async (item: any) => {
-      await buyProduct({
-        his_date: dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ss.SSS") + "Z",
-        quantity: item.quantity,
-        total: item.price * item.quantity,
-        user_id: user_id,
-        product_id: item.product_id,
+    try {
+      _.forEach(this.cart, async (item: any) => {
+        await buyProduct({
+          his_date: dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ss.SSS") + "Z",
+          quantity: item.quantity,
+          total: item.product_price * item.quantity,
+          user_id: user_id,
+          product_id: item.product_id,
+        });
       });
-    });
+      this.cart = [];
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+      Router.prototype.push("/");
+    } catch (err) {
+      console.log(err);
+      alert(err.message);
+    }
   }
 }
 export const cartContext = createContext(new CartContext());

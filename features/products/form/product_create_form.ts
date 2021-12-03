@@ -9,6 +9,7 @@ export const prouctCreateInitValue = {
   brand_id: "",
   type_id: "",
   size_id: "",
+  image: null,
 };
 
 export const productCreateSchema = Yup.object().shape({
@@ -19,5 +20,6 @@ export const productCreateSchema = Yup.object().shape({
   quantity: Yup.number().required("Quantity is required"),
   description: Yup.string().required("Description is required"),
   type_id: Yup.number().required("Type is required"),
+  image: Yup.mixed().required("Image is required"),
   // size_id: Yup.string().required("Size is required"),
 });

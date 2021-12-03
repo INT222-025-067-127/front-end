@@ -6,6 +6,7 @@ import { getSize } from "../../../core/services/size";
 import { postProduct } from "../../../core/services/product";
 import _ from "lodash";
 import { Router } from "next/router";
+import { uploadImage } from "../../../core/services/image";
 
 class ProductCreateContext {
   types;
@@ -71,15 +72,23 @@ class ProductCreateContext {
             quantity: Number(size.qty),
             size_id: size.size_id,
           };
-          await postProduct(data);
+          const resp = await postProduct(data);
+
+          const formData = new FormData();
+          formData.append("image", value.image);
+
+          await uploadImage(resp.data.body.product_id, formData);
         }
       });
+      this.isCreating = false;
     } catch (err) {
       console.log(err);
       alert(err.message);
     } finally {
+      if (!this.isCreating) {
+        Router.prototype.push("/");
+      }
       this.isCreating = false;
-      Router.prototype.push("/");
     }
   }
 }

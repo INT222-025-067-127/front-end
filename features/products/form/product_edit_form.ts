@@ -9,6 +9,7 @@ export const prouctEditInitValue = {
   type_id: "",
   quantity: 0,
   size_id: "",
+  image: null,
 };
 
 export const productEditSchema = Yup.object().shape({

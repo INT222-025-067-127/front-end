@@ -7,12 +7,15 @@ import { getSize } from "../../../core/services/size";
 import { getProductDetail, putProduct } from "../../../core/services/product";
 import { FormikProps } from "formik";
 import dayjs from "dayjs";
-import { Router } from "next/router"
+import { Router } from "next/router";
+import { updateImage, uploadImage } from "../../../core/services/image";
 
 class ProductEditContext {
   types;
   brands;
   sizes;
+
+  isUpdating;
 
   //-------------------
   // CONSTUCTOR
@@ -21,6 +24,7 @@ class ProductEditContext {
     this.types = [];
     this.brands = [];
     this.sizes = [];
+    this.isUpdating = false;
     makeAutoObservable(this);
   }
 
@@ -87,6 +91,7 @@ class ProductEditContext {
 
   async editProduct(values, id: string | string[]) {
     try {
+      this.isUpdating = true;
       await putProduct(
         {
           ...values,
@@ -95,10 +100,19 @@ class ProductEditContext {
         },
         id
       );
-      Router.prototype.push(`/product/${id}`)
+      const formData = new FormData();
+      formData.append("image", values.image);
+
+      await updateImage(id, formData);
+      this.isUpdating = false;
     } catch (err) {
       console.log(err);
       alert(err.message);
+    } finally {
+      if (!this.isUpdating) {
+        Router.prototype.push("/");
+      }
+      this.isUpdating = false;
     }
   }
 }

@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import _ from "lodash";
 import { Observer } from "mobx-react-lite";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import MainLayout from "../../../core/components/main_layout";
 import TextInput from "../../../core/components/text_input";
 import { productEditContext } from "../context/product_edit_context";
@@ -25,6 +25,8 @@ export default function ProductEditPage() {
     },
   });
 
+  const imageInput = useRef(null);
+
   useEffect(() => {
     context.preparation(router.query.id, formik);
     context.prepareBrand();
@@ -39,22 +41,29 @@ export default function ProductEditPage() {
           <div className="mt-[64px] flex flex-col space-y-[8px] laptop:space-y-0 laptop:flex-row laptop:space-x-[32px] laptop:px-[20px]">
             <div className="flex flex-col items-center w-full laptop:w-2/5 space-y-[32px]">
               <div className="w-[320px] h-[320px] bg-[#DCDCDC] relative flex justify-center items-center rounded-[91px]">
-                <div className="absolute w-[256px] h-[256px] bg-[#B0B0B0] rounded-full" />
-                <img
-                  className="absolute w-[256px] h-full pt-[48px] pb-[36px]"
-                  src=""
+                <div
+                  className="absolute w-[256px] h-[256px] bg-[#B0B0B0] rounded-full"
+                  onClick={() => imageInput.current.click()}
                 />
-              </div>
-              <div className="flex justify-around w-full">
-                <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
-                  <img className="w-full p-[16px] h-full" src="" />
-                </div>
-                <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
-                  <img className="w-full p-[16px] h-full" src="" />
-                </div>
-                <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
-                  <img className="w-full p-[16px] h-full" src="" />
-                </div>
+                <img
+                  className="absolute w-[256px] h-full pt-[48px] pb-[36px] cursor-pointer object-contain"
+                  src={
+                    formik.values.image
+                      ? URL.createObjectURL(formik.values.image)
+                      : `${process.env.BE_API}/images/getImg/${router.query.id}`
+                  }
+                  onClick={() => imageInput.current.click()}
+                />
+
+                <input
+                  className="hidden"
+                  type="file"
+                  ref={imageInput}
+                  accept="image/*"
+                  onChange={(e) => {
+                    formik.setFieldValue("image", e.target.files[0]);
+                  }}
+                />
               </div>
             </div>
 
@@ -139,10 +148,7 @@ export default function ProductEditPage() {
                     className="py-[4px] px-[4px]"
                     type="date"
                     onChange={(e) => {
-                      formik.setFieldValue(
-                        "exp_date",
-                        e.target.value
-                      );
+                      formik.setFieldValue("exp_date", e.target.value);
                     }}
                     value={formik.values.exp_date}
                   />

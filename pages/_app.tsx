@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import AuthLayout from "../core/components/auth_layout";
 import { useContext, useEffect } from "react";
 import { cartContext } from "../core/contexts/cart_context";
+import PermissionLayout from "../core/components/permission_layout";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const CartContext = useContext(cartContext);
@@ -15,7 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <AuthLayout>
-      <Component {...pageProps} />
+      <PermissionLayout>
+        <Component {...pageProps} />
+      </PermissionLayout>
     </AuthLayout>
   );
 }

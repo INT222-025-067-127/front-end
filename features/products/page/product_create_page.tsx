@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import _ from "lodash";
 import { Observer } from "mobx-react-lite";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import MainLayout from "../../../core/components/main_layout";
 import TextInput from "../../../core/components/text_input";
 import { productCreateContext } from "../context/product_create_context";
@@ -22,6 +22,8 @@ export default function ProductCreatePage() {
     },
   });
 
+  const imageInput = useRef(null);
+
   useEffect(() => {
     context.prepareTypes();
     context.prepareBrand();
@@ -35,13 +37,34 @@ export default function ProductCreatePage() {
           <div className="mt-[64px] flex flex-col space-y-[8px] laptop:space-y-0 laptop:flex-row laptop:space-x-[32px] laptop:px-[20px]">
             <div className="flex flex-col items-center w-full laptop:w-2/5 space-y-[32px]">
               <div className="w-[320px] h-[320px] bg-[#DCDCDC] relative flex justify-center items-center rounded-[91px]">
-                <div className="absolute w-[256px] h-[256px] bg-[#B0B0B0] rounded-full" />
-                <img
-                  className="absolute w-[256px] h-full pt-[48px] pb-[36px]"
-                  src=""
+                <div
+                  className="absolute w-[256px] h-[256px] bg-[#B0B0B0] rounded-full cursor-pointer"
+                  onClick={() => imageInput.current.click()}
+                />
+                {formik.values.image ? (
+                  <img
+                    className="absolute w-[256px] h-full pt-[48px] pb-[36px] cursor-pointer object-contain"
+                    src={URL.createObjectURL(formik.values.image)}
+                    onClick={() => imageInput.current.click()}
+                  />
+                ) : (
+                  <i
+                    className="z-20 text-[#DCDCDC] fas fa-images text-8xl cursor-pointer"
+                    onClick={() => imageInput.current.click()}
+                  />
+                )}
+
+                <input
+                  className="hidden"
+                  type="file"
+                  ref={imageInput}
+                  accept="image/*"
+                  onChange={(e) => {
+                    formik.setFieldValue("image", e.target.files[0]);
+                  }}
                 />
               </div>
-              <div className="flex justify-around w-full">
+              {/* <div className="flex justify-around w-full">
                 <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
                   <img className="w-full p-[16px] h-full" src="" />
                 </div>
@@ -51,7 +74,7 @@ export default function ProductCreatePage() {
                 <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
                   <img className="w-full p-[16px] h-full" src="" />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex flex-col items-center justify-between w-full laptop:w-3/5">
@@ -75,7 +98,10 @@ export default function ProductCreatePage() {
                       id=""
                       className="flex-grow rounded-[4px] py-[4px]"
                       onChange={(e) => {
-                        formik.setFieldValue("brand_id", Number(e.target.value));
+                        formik.setFieldValue(
+                          "brand_id",
+                          Number(e.target.value)
+                        );
                       }}
                       value={formik.values.brand_id}
                     >
@@ -134,7 +160,9 @@ export default function ProductCreatePage() {
                     onChange={(e) => {
                       formik.setFieldValue(
                         "exp_date",
-                        dayjs(e.target.value).format("YYYY-MM-DDTHH:mm:ss.SSS")+"Z"
+                        dayjs(e.target.value).format(
+                          "YYYY-MM-DDTHH:mm:ss.SSS"
+                        ) + "Z"
                       );
                     }}
                   />
@@ -175,10 +203,7 @@ export default function ProductCreatePage() {
                   <textarea
                     className="py-[4px] px-[4px] focus:outline-none w-full h-[96px] rounded-[4px]"
                     onChange={(e) => {
-                      formik.setFieldValue(
-                        "description",
-                        e.target.value
-                      );
+                      formik.setFieldValue("description", e.target.value);
                     }}
                     value={formik.values.description}
                   />
@@ -189,7 +214,10 @@ export default function ProductCreatePage() {
                       <p>{error}</p>
                     ))}
                   </div>
-                  <button className="rounded-[4px] bg-[#236EA6] text-white subheading2 h-[48px] px-[16px]" onClick={() => formik.submitForm()}>
+                  <button
+                    className="rounded-[4px] bg-[#236EA6] text-white subheading2 h-[48px] px-[16px]"
+                    onClick={() => formik.submitForm()}
+                  >
                     Add Product
                   </button>
                 </div>

@@ -17,6 +17,14 @@ export default function SelectDropdown(props: SelectDropdownProps) {
 
   return (
     <div>
+      {isOpen && (
+        <div
+          className="fixed top-0 left-0 z-10 w-screen h-screen"
+          onClick={() => {
+            setIsOpen(false);
+          }}
+        />
+      )}
       <div className="relative">
         <div
           className="w-full h-32 border rounded-[16px] px-16 caption1 flex items-center justify-between cursor-pointer"
@@ -45,15 +53,6 @@ export default function SelectDropdown(props: SelectDropdownProps) {
           </div>
         )}
       </div>
-
-      {isOpen && (
-        <div
-          className="absolute top-0 left-0 z-10 w-screen h-screen"
-          onClick={() => {
-            setIsOpen(false);
-          }}
-        />
-      )}
     </div>
   );
 }

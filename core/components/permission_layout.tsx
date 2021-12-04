@@ -8,15 +8,17 @@ const pagePermission = new Map<
   Array<"admin" | "buyer" | "anonymous">
 >();
 pagePermission.set("/404", ["admin", "buyer", "anonymous"]);
+pagePermission.set("/401", ["admin", "buyer", "anonymous"]);
 pagePermission.set("/signin", ["admin", "buyer", "anonymous"]);
 pagePermission.set("/signup", ["admin", "buyer", "anonymous"]);
 
 pagePermission.set("/cart", ["admin", "buyer", "anonymous"]);
 pagePermission.set("/member", ["admin", "buyer", "anonymous"]);
+pagePermission.set("/history", ["buyer"]);
 
 pagePermission.set("/", ["admin", "buyer", "anonymous"]);
 pagePermission.set("/product/[id]", ["admin", "buyer", "anonymous"]);
-pagePermission.set("/product/[id]/edit", ["admin", "buyer", "anonymous"]);
+pagePermission.set("/product/[id]/edit", ["admin"]);
 pagePermission.set("/product/add", ["admin"]);
 
 export default function PermissionLayout(props) {
@@ -25,13 +27,15 @@ export default function PermissionLayout(props) {
   const router = useRouter();
 
   useEffect(() => {
+    console.log(authContext.user.role.role_name);
+      console.log(pagePermission.get(router.pathname));
     if (
       !pagePermission
         .get(router.pathname)
         ?.includes(authContext.user.role.role_name) &&
-      router.pathname !== "/404"
+      router.pathname !== "/404" && router.pathname !== "/401" 
     ) {
-      router.push("/404");
+      router.push("/401");
     }
   }, [router.asPath]);
 

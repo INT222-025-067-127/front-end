@@ -58,7 +58,7 @@ class AuthContextClass {
     try {
       const resp = await postsignin(authForm);
 
-      if (resp.status === 200) {
+      if (resp.status === 200 || 201) {
         this.setCookie(process.env.TOKEN_COOKIE_NAME, resp.data.body.token, 1);
         Router.prototype.push("/");
       }

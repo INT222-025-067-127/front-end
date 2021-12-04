@@ -66,6 +66,18 @@ export default function MainLayout({ children, fullWidth = false }) {
                   )}
                 </div>
               </Link>
+              <Link href={`/history`} key="History">
+                <button
+                  className={classnames("border-[#83817f] px-4 subheading1", {
+                    "border-b-2": _.includes(
+                      `/${router.asPath.split("/")[1]}`,
+                      "history"
+                    ),
+                  })}
+                >
+                  History
+                </button>
+              </Link>
               <Link href={`/member`} key="Member">
                 <button
                   className={classnames("border-[#83817f] px-4 subheading1", {

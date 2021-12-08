@@ -15,19 +15,19 @@ export default function MemberPage() {
                   name: "เค้ก",
                   code: "62130500025",
                   position: "DevOps",
-                  image: "",
+                  image: "/images/cake.jpg",
                 },
                 {
                   name: "ปลื้ม",
                   code: "62130500067",
                   position: "Back-end, Database",
-                  image: "",
+                  image: "/images/pluem.jpg",
                 },
                 {
                   name: "พิซซ่า",
                   code: "62130500127",
                   position: "Front-end",
-                  image: "",
+                  image: "/images/pizza.jpg",
                 },
               ],
               (member) => (

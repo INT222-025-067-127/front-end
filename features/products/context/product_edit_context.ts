@@ -127,8 +127,14 @@ class ProductEditContext {
       }
       Router.prototype.push("/");
     } catch (err) {
-      console.log(err);
-      alert(err.message);
+      if (err.response?.status === 403) {
+        alert(
+          "You don't have permission to delete this product. Please contact admin."
+        );
+      } else {
+        console.log(err);
+        alert(err.message);
+      }
     }
   }
 }

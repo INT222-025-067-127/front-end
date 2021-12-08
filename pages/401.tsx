@@ -5,7 +5,7 @@ const UnorthorizePage = () => {
 
   return (
     <div className="flex flex-col items-center pt-[24x] space-y-[16px]">
-      <h1 className="heading1 text-[#2C5675]">Unorthorize</h1>
+      <h1 className="heading1 text-[#2C5675]">401 Unorthorize</h1>
       <img
         src="/images/kaiya_graphic.svg"
         className=""
@@ -15,10 +15,10 @@ const UnorthorizePage = () => {
       <button
         className="subheading2 bg-[#236EA6] text-white px-[16px] py-[8px] rounded-[4px]"
         onClick={() => {
-          router.back();
+          router.push("/");
         }}
       >
-        back
+        back to home
       </button>
     </div>
   );

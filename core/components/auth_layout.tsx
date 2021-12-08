@@ -9,5 +9,9 @@ export default function AuthLayout(props) {
     context.fetchMe();
   }, []);
 
-  return <Observer>{() => <div>{props.children}</div>}</Observer>;
+  return (
+    <Observer>
+      {() => !context.isLoading && <div>{props.children}</div>}
+    </Observer>
+  );
 }

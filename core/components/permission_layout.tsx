@@ -12,7 +12,7 @@ pagePermission.set("/401", ["admin", "buyer", "anonymous"]);
 pagePermission.set("/signin", ["admin", "buyer", "anonymous"]);
 pagePermission.set("/signup", ["admin", "buyer", "anonymous"]);
 
-pagePermission.set("/cart", ["admin", "buyer", "anonymous"]);
+pagePermission.set("/cart", ["buyer"]);
 pagePermission.set("/member", ["admin", "buyer", "anonymous"]);
 pagePermission.set("/history", ["buyer"]);
 
@@ -27,8 +27,6 @@ export default function PermissionLayout(props) {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(authContext.user.role.role_name);
-      console.log(pagePermission.get(router.pathname));
     if (
       !pagePermission
         .get(router.pathname)

@@ -26,7 +26,12 @@ export default function ProductPage() {
         <MainLayout>
           <div className="relative pt-16 pb-32 tablet:pt-72">
             {authContext.user.role.role_name === "admin" && (
-              <button className="fixed bottom-[16px] right-[16px] laptop:bottom-[32px] laptop:right-[256px] w-[64px] rounded-full h-[64px] bg-[#2C5675] flex justify-center items-center cursor-pointer" onClick={() => {router.push("/product/add")}}>
+              <button
+                className="fixed bottom-[16px] right-[16px] laptop:bottom-[32px] laptop:right-[256px] w-[64px] rounded-full h-[64px] bg-[#2C5675] flex justify-center items-center cursor-pointer z-20"
+                onClick={() => {
+                  router.push("/product/add");
+                }}
+              >
                 <i className="text-5xl text-white fas fa-plus"></i>
               </button>
             )}
@@ -41,7 +46,6 @@ export default function ProductPage() {
                     ]}
                     onChange={(e) => {
                       context.setValue("type", e);
-                      //   context.prepare();
                     }}
                     value={context.type}
                   />
@@ -51,7 +55,6 @@ export default function ProductPage() {
                     placeholder="search"
                     onChange={(e) => {
                       context.setValue("search_word", e.target.value);
-                      //   context.filterProduct();
                     }}
                   />
                 </div>
@@ -65,9 +68,12 @@ export default function ProductPage() {
             ) : (
               <div className="grid w-full grid-cols-1 mt-32 tablet:grid-cols-2 tablet-xl:grid-cols-3 gap-y-16 tablet:gap-y-32">
                 {_.map(context.filterProduct() || [], (product) => (
-                  <div className="flex justify-center w-full">
+                  <div
+                    className="flex justify-center w-full"
+                    key={product.product_id}
+                  >
                     <div className="w-2/3 tablet:w-5/6">
-                      <ProductCard                        
+                      <ProductCard
                         product={product}
                         image={`${process.env.BE_API}/images/getImg/${product.product_id}`}
                         onClick={() => {

@@ -29,7 +29,7 @@ export default function MainLayout({ children, fullWidth = false }) {
             <Link href="/">
               <img
                 src="/images/kaya.svg"
-                className="w-[60px] tablet:w-[140px]"
+                className="w-[60px] tablet:w-[140px] cursor-pointer"
               />
             </Link>
             <div className="laptop:flex justify-center space-x-112 flex-grow text-[#83817F] hidden">
@@ -59,7 +59,7 @@ export default function MainLayout({ children, fullWidth = false }) {
                   )}
                 >
                   Cart
-                  {CartContext.cart?.length > 0 && (
+                  {CartContext.cart?.length > 0 && authContext.user.role.role_name === "buyer" && (
                     <div className="absolute top-[-4px] right-[-12px] text-white bg-red-400 rounded-full caption3 w-[16px] h-[16px]">
                       <p className="text-center">{CartContext.cart.length}</p>
                     </div>
@@ -100,7 +100,7 @@ export default function MainLayout({ children, fullWidth = false }) {
                 login
               </button>
             ) : (
-              <button className="bg-[#367cb0] rounded-[42px] w-[112px] h-40 text-white cursor-pointer laptop:block hidden subheading2">
+              <button className="bg-[#367cb0] rounded-[42px] w-[112px] h-40 text-white cursor-pointer laptop:block hidden subheading2" onClick={() => authContext.signout()}>
                 logout
               </button>
             )}

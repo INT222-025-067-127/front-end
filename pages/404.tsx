@@ -5,7 +5,7 @@ const NotFoundPage = () => {
 
   return (
     <div className="flex flex-col items-center pt-[24x] space-y-[16px]">
-      <h1 className="heading1 text-[#2C5675]">Page Not Found</h1>
+      <h1 className="heading1 text-[#2C5675]">404 Page Not Found</h1>
       <img
         src="/images/kaiya_graphic.svg"
         className=""

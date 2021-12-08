@@ -62,7 +62,7 @@ class CartContext {
         _.map(this.cart, async (item: any) => {
           await buyProduct({
             his_date: dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ss.SSS") + "Z",
-            quantity: item.quantity,
+            quantity: Number(item.quantity),
             total: item.product_price * item.quantity,
             user_id: user_id,
             product_id: item.product_id,
@@ -72,11 +72,10 @@ class CartContext {
 
       this.cart = [];
       localStorage.setItem("cart", JSON.stringify(this.cart));
+      Router.prototype.push("/");
     } catch (err) {
       console.log(err);
       alert(err.message);
-    } finally {
-      Router.prototype.push("/");
     }
   }
 }

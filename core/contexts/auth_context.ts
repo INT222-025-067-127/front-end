@@ -22,11 +22,14 @@ class AuthContextClass {
   signupFormik;
   signinFormik;
 
+  isLoading: boolean;
+
   constructor() {
     this.user = {
       role: { role_name: "anonymous" },
     };
     this.isUserAlreadyExists = false;
+    this.isLoading = true;
     makeAutoObservable(this);
   }
 
@@ -91,8 +94,14 @@ class AuthContextClass {
     }
   }
 
+  async signout() {
+    this.setCookie(process.env.TOKEN_COOKIE_NAME, "", 0);
+    Router.prototype.push("/");
+  }
+
   async fetchMe() {
     try {
+      this.isLoading = true;
       const resp: any = await fetchToken(
         this.getCookie(process.env.TOKEN_COOKIE_NAME)
       );
@@ -100,10 +109,12 @@ class AuthContextClass {
         this.user = resp.data.user;
       }
     } catch (err) {
-      if (err.response?.status !== 401) {
+      if (err.response?.status !== 401 && err.response?.status !== 403) {
         console.log(err);
         alert(err.message);
       }
+    } finally {
+      this.isLoading = false;
     }
   }
 }

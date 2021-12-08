@@ -34,7 +34,7 @@ export default function MemberPage() {
                 <div className="w-[288px] px-[8px] py-[12px] bg-[#008795] flex flex-col items-center">
                   <img
                     src={member.image}
-                    className="w-[248px] h-[248px] rounded-full border-8 border-white object-contain"
+                    className="w-[248px] h-[248px] rounded-full border-8 border-white object-cover"
                     alt={`รูป ${member.name}`}
                   />
                   <p className="mt-[16px] text-white subheading2">

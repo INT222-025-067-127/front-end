@@ -35,11 +35,11 @@ class HistoryContext {
       sizes: {
         size_id: number;
         sizes: string;
-      }
+      };
       types: {
         type_id: number;
         type_name: string;
-      }
+      };
     };
   }>;
 
@@ -64,8 +64,10 @@ class HistoryContext {
 
       this.histories = resp.data.body;
     } catch (err) {
-      console.log(err);
-      alert(err.message);
+      if (id) {
+        console.log(err);
+        alert(err.message);
+      }
     }
   }
 }

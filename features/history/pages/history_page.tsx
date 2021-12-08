@@ -44,7 +44,7 @@ export default function HistoryPage() {
                       <div className="w-full">
                         <p className="caption2">{`${item.products.product_name}`}</p>
                         <div className="flex justify-between space-x-[8px] max-w-[200px]">
-                          <p className="caption3">{`size: #30 pills`}</p>
+                          <p className="caption3">{`size: ${item.products.sizes.sizes} pills`}</p>
                           <p className="caption3">
                             {dayjs(item.his_date).format("DD/MM/YYYY HH:mm")}
                           </p>

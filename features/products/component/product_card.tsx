@@ -46,7 +46,7 @@ export default function ProductCard(props: ProductCardProps) {
           )}
         </div>
         <p className="text-[#2C5675] subheading2 mt-16 text-center">
-            {props.product.product_name} {' '} {props.product.sizes.sizes} {props.product.types.type_name}
+          {props.product.product_name} {props.product.sizes.sizes} pills
         </p>
       </div>
       <p className="text-[#008795] subheading2 mt-8">

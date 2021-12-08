@@ -104,10 +104,12 @@ class ProductEditContext {
         },
         id
       );
-      const formData = new FormData();
-      formData.append("image", values.image);
+      if (values.image) {
+        const formData = new FormData();
+        formData.append("image", values.image);
 
-      await updateImage(id, formData);
+        await updateImage(id, formData);
+      }
       this.isUpdating = false;
     } catch (err) {
       console.log(err);
@@ -129,7 +131,7 @@ class ProductEditContext {
     } catch (err) {
       if (err.response?.status === 403) {
         alert(
-          "You don't have permission to delete this product. Please contact admin."
+          "You don't have permission to delete transaction product."
         );
       } else {
         console.log(err);

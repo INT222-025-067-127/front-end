@@ -28,6 +28,18 @@ class HistoryContext {
       brand_id: number;
       type_id: number;
       size_id: number;
+      brands: {
+        brand_id: number;
+        brand_name: string;
+      };
+      sizes: {
+        size_id: number;
+        sizes: string;
+      }
+      types: {
+        type_id: number;
+        type_name: string;
+      }
     };
   }>;
 

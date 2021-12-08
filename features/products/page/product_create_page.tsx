@@ -64,17 +64,6 @@ export default function ProductCreatePage() {
                   }}
                 />
               </div>
-              {/* <div className="flex justify-around w-full">
-                <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
-                  <img className="w-full p-[16px] h-full" src="" />
-                </div>
-                <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
-                  <img className="w-full p-[16px] h-full" src="" />
-                </div>
-                <div className="w-[96px] h-[96px] bg-[#DCDCDC] rounded-[30px]">
-                  <img className="w-full p-[16px] h-full" src="" />
-                </div>
-              </div> */}
             </div>
 
             <div className="flex flex-col items-center justify-between w-full laptop:w-3/5">
@@ -189,7 +178,7 @@ export default function ProductCreatePage() {
                             size.qty = Number(e.target.value);
                           }
                         }}
-                        value={size.qty}
+                        value={size.selected ? size.qty : ""}
                         disabled={!size.selected}
                       />
                     </div>

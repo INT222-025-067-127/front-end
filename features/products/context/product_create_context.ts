@@ -53,6 +53,7 @@ class ProductCreateContext {
         ...size,
         selected: false,
         qty: "",
+        price: "",
       }));
     } catch (err) {
       console.log(err);
@@ -65,12 +66,13 @@ class ProductCreateContext {
     try {
       await Promise.all(
         _.map(this.sizes, async (size) => {
-          if (size.selected && size.qty > 0) {
+          if (size.selected && size.qty > 0 && size.price > 0) {
             const data = {
               ...value,
               brand_id: Number(value.brand_id),
               type_id: Number(value.type_id),
               quantity: Number(size.qty),
+              price: Number(size.price),
               size_id: size.size_id,
             };
             const resp = await postProduct(data);

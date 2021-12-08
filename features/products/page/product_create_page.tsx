@@ -130,15 +130,6 @@ export default function ProductCreatePage() {
                   </div>
                 </div>
 
-                <TextInput
-                  onChange={(e) =>
-                    formik.setFieldValue("price", Number(e.target.value))
-                  }
-                  value={formik.values.price.toString()}
-                  title="Price"
-                  type="number"
-                />
-
                 <div className="space-x-[4px] flex items-center">
                   <p className="caption1 text-[#4D506C]">
                     <span className="font-extrabold">Expire:</span>{" "}
@@ -157,7 +148,7 @@ export default function ProductCreatePage() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 laptop:grid-cols-3 gap-[8px] w-full">
+                <div className="grid grid-cols-1 laptop:grid-cols-2 gap-[8px] w-full">
                   {_.map(context.sizes || [], (size) => (
                     <div className="flex space-x-[8px] items-center">
                       <input
@@ -179,6 +170,17 @@ export default function ProductCreatePage() {
                           }
                         }}
                         value={size.selected ? size.qty : ""}
+                        disabled={!size.selected}
+                      />
+                      <input
+                        placeholder={size.selected ? "price" : ""}
+                        className="w-[72px] px-[4px] rounded-[4px] focus:outline-none"
+                        onChange={(e) => {
+                          if (!isNaN(Number(e.target.value))) {
+                            size.price = Number(e.target.value);
+                          }
+                        }}
+                        value={size.selected ? size.price : ""}
                         disabled={!size.selected}
                       />
                     </div>
